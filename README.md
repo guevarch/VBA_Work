@@ -1,7 +1,3 @@
-Here’s a GitHub-style README for your VBA scripts:
-
----
-
 # Excel VBA Macros
 
 ## Version 1.0
@@ -88,10 +84,4 @@ Contributions are welcome! If you have suggestions for improving these macros or
 3. Make your changes.
 4. Submit a pull request.
 
-### License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-This GitHub-style README provides all necessary information for users to understand, install, and use the VBA macros, along with instructions for contributing and details about licensing.
