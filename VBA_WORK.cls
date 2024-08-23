@@ -7,7 +7,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = True
-Sub CombinedOperationsSales()
+Sub CleanSales()
     Dim ws As Worksheet
     Dim keepCols As Variant
     Dim lastRow As Long
@@ -65,7 +65,7 @@ Sub CombinedOperationsSales()
     MsgBox "Operations completed: Columns kept, switched, concatenated, renamed, and '--None--' replaced."
 End Sub
 
-Sub CombinedOperationsPM()
+Sub CleanPerfectMind()
     Dim ws As Worksheet
     Dim keepCols As Variant
     Dim lastRow As Long
@@ -118,7 +118,7 @@ Sub CombinedOperationsPM()
     MsgBox "Operations completed: Columns kept, '--None--' removed, columns concatenated, renamed, and switched."
 End Sub
 
-Sub SummarizeDataWithSUMIF()
+Sub SummarizeSales()
     Dim ws As Worksheet
     Dim lastRow As Long
     Dim uniqueItems As Collection
