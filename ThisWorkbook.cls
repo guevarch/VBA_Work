@@ -60,70 +60,6 @@ Sub CleanPerfectMind()
     MsgBox "Operations completed: Columns kept, '--None--' removed, columns concatenated, renamed, and switched."
 End Sub
 
-
-Sub Controlreport()
-    Dim wsControl As Worksheet
-    Dim wsSales As Worksheet
-    Dim wsPMQT As Worksheet
-    Dim lastRowControl As Long
-    Dim lastRowSales As Long
-    Dim lastRowPMQT As Long
-    Dim i As Long
-    Dim matchRow As Variant
-    Dim physicalCount As Variant
-    Dim perfectMindQty As Variant
-    Dim salesQty As Variant
-    Dim result As Double
-
-    ' Set the worksheets
-    Set wsControl = ThisWorkbook.Sheets("Control Report")
-    Set wsSales = ThisWorkbook.Sheets("Sales")
-    Set wsPMQT = ThisWorkbook.Sheets("PMQT")
-
-    ' Find the last rows in all sheets
-    lastRowControl = wsControl.Cells(wsControl.Rows.Count, "A").End(xlUp).Row
-    lastRowSales = wsSales.Cells(wsSales.Rows.Count, "C").End(xlUp).Row
-    lastRowPMQT = wsPMQT.Cells(wsPMQT.Rows.Count, "A").End(xlUp).Row
-
-    ' Loop through the Control Report column A
-    For i = 2 To lastRowControl ' Assuming row 1 is a header
-        ' Match in Sales tab column C and pull data from column D to Control Report column E
-        matchRow = Application.Match(wsControl.Cells(i, 1).Value, wsSales.Range("C2:C" & lastRowSales), 0)
-        If Not IsError(matchRow) Then
-            wsControl.Cells(i, 5).Value = wsSales.Cells(matchRow + 1, 4).Value ' matchRow + 1 adjusts for header
-        Else
-            wsControl.Cells(i, 5).Value = "No Match"
-        End If
-
-        ' Match in PMQT tab column A and pull data from column B to Control Report column D
-        matchRow = Application.Match(wsControl.Cells(i, 1).Value, wsPMQT.Range("A2:A" & lastRowPMQT), 0)
-        If Not IsError(matchRow) Then
-            wsControl.Cells(i, 4).Value = wsPMQT.Cells(matchRow + 1, 2).Value ' matchRow + 1 adjusts for header
-        Else
-            wsControl.Cells(i, 4).Value = "No Match"
-        End If
-
-        ' Calculate the sum of Physical Count and PerfectMind Quantity, then subtract Sales
-        physicalCount = wsControl.Cells(i, 3).Value
-        perfectMindQty = wsControl.Cells(i, 4).Value
-        salesQty = wsControl.Cells(i, 5).Value
-
-        ' Ensure the values are numeric, otherwise set them to 0
-        If Not IsNumeric(physicalCount) Then physicalCount = 0
-        If Not IsNumeric(perfectMindQty) Then perfectMindQty = 0
-        If Not IsNumeric(salesQty) Then salesQty = 0
-
-        ' Perform the calculation
-        result = physicalCount + perfectMindQty - salesQty
-
-        ' Place the result in Column F (or next available column)
-        wsControl.Cells(i, 6).Value = result
-    Next i
-
-    MsgBox "Data transfer and inventory difference calculation complete.", vbInformation
-
-End Sub
-
 Sub CleanAndSummarizeSales()
     Dim ws As Worksheet
     Dim keepCols As Variant
@@ -210,6 +146,72 @@ Sub CleanAndSummarizeSales()
 
     MsgBox "Operations completed: Data cleaned, summarized, and results placed into columns C and D."
 End Sub
+
+
+Sub Controlreport()
+    Dim wsControl As Worksheet
+    Dim wsSales As Worksheet
+    Dim wsPMQT As Worksheet
+    Dim lastRowControl As Long
+    Dim lastRowSales As Long
+    Dim lastRowPMQT As Long
+    Dim i As Long
+    Dim matchRow As Variant
+    Dim physicalCount As Variant
+    Dim perfectMindQty As Variant
+    Dim salesQty As Variant
+    Dim result As Double
+
+    ' Set the worksheets
+    Set wsControl = ThisWorkbook.Sheets("Control Report")
+    Set wsSales = ThisWorkbook.Sheets("Sales")
+    Set wsPMQT = ThisWorkbook.Sheets("PMQT")
+
+    ' Find the last rows in all sheets
+    lastRowControl = wsControl.Cells(wsControl.Rows.Count, "A").End(xlUp).Row
+    lastRowSales = wsSales.Cells(wsSales.Rows.Count, "C").End(xlUp).Row
+    lastRowPMQT = wsPMQT.Cells(wsPMQT.Rows.Count, "A").End(xlUp).Row
+
+    ' Loop through the Control Report column A
+    For i = 2 To lastRowControl ' Assuming row 1 is a header
+        ' Match in Sales tab column C and pull data from column D to Control Report column E
+        matchRow = Application.Match(wsControl.Cells(i, 1).Value, wsSales.Range("C2:C" & lastRowSales), 0)
+        If Not IsError(matchRow) Then
+            wsControl.Cells(i, 5).Value = wsSales.Cells(matchRow + 1, 4).Value ' matchRow + 1 adjusts for header
+        Else
+            wsControl.Cells(i, 5).Value = "No Match"
+        End If
+
+        ' Match in PMQT tab column A and pull data from column B to Control Report column D
+        matchRow = Application.Match(wsControl.Cells(i, 1).Value, wsPMQT.Range("A2:A" & lastRowPMQT), 0)
+        If Not IsError(matchRow) Then
+            wsControl.Cells(i, 4).Value = wsPMQT.Cells(matchRow + 1, 2).Value ' matchRow + 1 adjusts for header
+        Else
+            wsControl.Cells(i, 4).Value = "No Match"
+        End If
+
+        ' Calculate the sum of Physical Count and PerfectMind Quantity, then subtract Sales
+        physicalCount = wsControl.Cells(i, 3).Value
+        perfectMindQty = wsControl.Cells(i, 4).Value
+        salesQty = wsControl.Cells(i, 5).Value
+
+        ' Ensure the values are numeric, otherwise set them to 0
+        If Not IsNumeric(physicalCount) Then physicalCount = 0
+        If Not IsNumeric(perfectMindQty) Then perfectMindQty = 0
+        If Not IsNumeric(salesQty) Then salesQty = 0
+
+        ' Perform the calculation
+        result = physicalCount + perfectMindQty - salesQty
+
+        ' Place the result in Column F (or next available column)
+        wsControl.Cells(i, 6).Value = result
+    Next i
+
+    MsgBox "Data transfer and inventory difference calculation complete.", vbInformation
+
+End Sub
+
+
 
 
 
