@@ -1,4 +1,12 @@
-
+VERSION 1.0 CLASS
+BEGIN
+  MultiUse = -1  'True
+END
+Attribute VB_Name = "Sheet1"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = True
 
 Sub CleanPerfectMind()
     Dim ws As Worksheet
@@ -203,12 +211,6 @@ Sub CleanAndSummarizeSales()
 
     MsgBox "Operations completed: Data cleaned, summarized, and results placed into columns C and D."
 End Sub
-
-
-
-
-
-
 
 
 
