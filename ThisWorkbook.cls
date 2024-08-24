@@ -70,6 +70,10 @@ Sub Controlreport()
     Dim lastRowPMQT As Long
     Dim i As Long
     Dim matchRow As Variant
+    Dim physicalCount As Variant
+    Dim perfectMindQty As Variant
+    Dim salesQty As Variant
+    Dim result As Double
 
     ' Set the worksheets
     Set wsControl = ThisWorkbook.Sheets("Control Report")
@@ -98,9 +102,25 @@ Sub Controlreport()
         Else
             wsControl.Cells(i, 4).Value = "No Match"
         End If
+
+        ' Calculate the sum of Physical Count and PerfectMind Quantity, then subtract Sales
+        physicalCount = wsControl.Cells(i, 3).Value
+        perfectMindQty = wsControl.Cells(i, 4).Value
+        salesQty = wsControl.Cells(i, 5).Value
+
+        ' Ensure the values are numeric, otherwise set them to 0
+        If Not IsNumeric(physicalCount) Then physicalCount = 0
+        If Not IsNumeric(perfectMindQty) Then perfectMindQty = 0
+        If Not IsNumeric(salesQty) Then salesQty = 0
+
+        ' Perform the calculation
+        result = physicalCount + perfectMindQty - salesQty
+
+        ' Place the result in Column F (or next available column)
+        wsControl.Cells(i, 6).Value = result
     Next i
 
-    MsgBox "Data transfer from Sales and PMQT complete."
+    MsgBox "Data transfer and inventory difference calculation complete.", vbInformation
 
 End Sub
 
